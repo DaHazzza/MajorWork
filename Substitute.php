@@ -6,10 +6,7 @@
 
 <link rel="stylesheet" href="styleSheet.css">
 <body style="margin:0%;"> 
-    <?php
-
-use function PHPSTORM_META\type;
-
+<?php
 include "includes/header.php";?> <!-- creates the Naviation Bar-->
 </body>
 
