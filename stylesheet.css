@@ -1,0 +1,86 @@
+.navBarUl {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: rgb(179, 179, 179);
+}
+.navBarLi {
+  float: left;
+}
+  .navBarLi a {
+  display: block;
+  color: rgb(0, 0, 0);
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+.navBarLi a:hover {
+  background-color: rgb(204, 204, 204);
+}
+.navBarIcon{
+    float: left;
+    width: 46px;
+    border-radius: 50%;
+    position: absolute;
+}
+.navBarIcon:hover{
+    opacity: 0%;
+}
+.navBarGif{
+    float: left;
+    width: 46px;
+    border-radius: 50%;
+}
+.error{
+  color: red;
+}
+.success{
+  color: green;
+}
+
+.navBarPfp{
+  width: 46px;
+  border-radius: 50%;
+}
+
+.centerDiv{
+  line-height: 150px;
+  height: 150px;
+  position: relative;
+}
+
+.title{
+  text-align: center;
+  text-decoration: black;
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  font-size: x-large;
+  
+}
+
+.center {
+display: flex;
+justify-content: center;
+align-items: center;
+}
+
+.container {
+  height: 200px;
+  position: relative;
+
+}
+
+.subBut{
+  height: 150px;
+  width: 150px;
+  padding: 20px;
+  margin: 20px;
+}
+
+.searchBar{
+position: relative;
+padding: 10px;
+align-items: center;
+}
+
+
