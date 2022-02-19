@@ -70,3 +70,10 @@ function loginUser($conn, $username, $password){
         exit;
     }
 }
+
+function getTeamInfo($conn,$teamID){
+    $sql = "SELECT * FROM teams WHERE teamID = ".$teamID;
+    $result = mysqli_query($conn,$sql);
+    $dict = mysqli_fetch_assoc($result);
+    return $dict; //returns a dictionarry of the team, todo add error heking for invalid team ids
+}
