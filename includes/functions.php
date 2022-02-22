@@ -81,3 +81,14 @@ function getTeamInfo($conn,$teamID){
         return false;
     }
 }
+
+function GetPlayerNamesFromTeamID($conn, $teamID){
+    $sql = "SELECT * FROM users WHERE teamID = ".$teamID;
+    $result = mysqli_query($conn,$sql);
+    if (mysqli_num_rows($result) > 0){
+        $dict = mysqli_fetch_assoc($result);    
+        return $dict; //returns a dictionarry of the team
+    }else{
+        return false;
+    }
+}

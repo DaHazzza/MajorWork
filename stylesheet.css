@@ -83,4 +83,17 @@ padding: 10px;
 align-items: center;
 }
 
+.teamStatsTH{
+  width: 10%;
+}
 
+.teamPlrLi{
+  display: inline-block;
+  margin-left: 20px;
+  margin-right: 20px
+}
+.teamPlrLiA{
+  font-weight: bold; 
+  font-size: xx-large;
+  color:Black
+  }
