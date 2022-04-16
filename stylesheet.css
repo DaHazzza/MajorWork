@@ -97,3 +97,10 @@ align-items: center;
   font-size: xx-large;
   color:Black
   }
+
+  .createTeamBut{
+    height: 60px;
+    width: 150px;
+    padding: 20px;
+    margin: 10px;
+  }

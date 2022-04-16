@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<!DOCTYPE html>
 <html lang="en">
 <head>
     <title>Major Work Scheduling site</title>
@@ -65,4 +64,8 @@ if (isset($_GET['id'])){
 $tesr =GetPlayerNamesFromTeamID(  $conn, $_GET['id']);
 print_r( $tesr);
 //currently this func only returns 1 player, TODO make it return all players and also work out what to do if only 4 players are in a team
+if (isset($_SESSION["username"]) and $_SESSION["userID"] ==$info ['captinID'] ){
+    echo 'e';
+}
 ?> 
+
