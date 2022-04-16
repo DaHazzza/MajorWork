@@ -88,11 +88,16 @@ function GetPlayerNamesFromTeamID($conn, $teamID){
     $arr = array();
     if (mysqli_num_rows($result) > 0){
         while ($row = mysqli_fetch_array($result)) {
-            array_push($arr,$row[1]);
+            $arr[$row[0]] = $row[1];
         }
         //include the id aswell as names
     return $arr; //returns a dictionarry of the team
     }else{
         return false;
     }
+}
+
+function csvToArr($str){
+    $arr = explode(",",$str);
+    return $arr;
 }

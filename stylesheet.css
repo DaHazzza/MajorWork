@@ -95,7 +95,8 @@ align-items: center;
 .teamPlrLiA{
   font-weight: bold; 
   font-size: xx-large;
-  color:Black
+  color:Black;
+  text-decoration: none;
   }
 
   .createTeamBut{

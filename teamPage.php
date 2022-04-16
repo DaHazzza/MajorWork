@@ -5,7 +5,11 @@
 </head>
 <link rel="stylesheet" href="styleSheet.css">
 <body style="margin:0%;"> 
-    <?php include "includes/header.php";?> <!-- creates the Naviation Bar-->
+    <?php
+
+use function PHPSTORM_META\type;
+
+ include "includes/header.php";?> <!-- creates the Naviation Bar-->
 </body>
 
 <?php
@@ -27,16 +31,16 @@ if (isset($_GET['id'])){
     </div>
     <div style="position: absolute; margin-left: 15%; margin-top:5%;"  >
         <ul style="list-style-type:none">
-            <li class="teamPlrLi"> <a class="teamPlrLiA" href="users.php">Player1</a></li>
-            <li class="teamPlrLi"> <a class="teamPlrLiA" href="users.php">Player1</a></li>
-            <li class="teamPlrLi"> <a class="teamPlrLiA" href="users.php">Player1</a></li>
-            <li class="teamPlrLi"> <a class="teamPlrLiA" href="users.php">Player1</a></li>
-            <li class="teamPlrLi"> <a class="teamPlrLiA" href="users.php">Player1</a></li>
-            <li class="teamPlrLi"> <a class="teamPlrLiA" href="users.php">Player1</a></li>
+            ';
+            foreach (GetPlayerNamesFromTeamID($conn, $_GET['id']) as $j => $i){
+                echo '<li class="teamPlrLi"> <a class="teamPlrLiA"';if($j == $info["captinID"]){echo'style="text-decoration: underline;"';} echo' href="profilePage.php?user=',$j,'">',$i,'</a></li>';
+            }
+            echo '
         </ul>
     </div>
     <div style="position: absolute; margin-top: 15%;">
         <table>
+        <tbody>
         <tr >
             <th class="teamStatsTH">Games Played</th>
             <th class="teamStatsTH">Wins</th>
@@ -49,10 +53,38 @@ if (isset($_GET['id'])){
             <th>'.$info['losses'].'</th>
             <th>'.$info['pointsScored'].'</th>
         </tr>
-    </div>
-    <a>TODO ADD PREV MATCHES</a>
-</div>
-';}else{
+        </tbody>
+        </table>'
+    ;
+    ?>
+    <a style="font-size: xx-large; font-weight: bold; ">Past Matches</a>
+    currently only match ids, need to get match info once match frameowrk done
+    <table>
+    <?php foreach(csvToArr($info['previousMatchIds'])as $i){
+        echo '            
+        <tr>
+            <td>',$i,'</td>
+
+        </tr>';
+    } ?>
+            
+
+
+    </table>
+
+    <?php
+if (isset($_SESSION["username"]) and $_SESSION["userID"] ==$info ['captinID'] ){
+    //if logged in user if the team captin 
+    echo'
+    <a style="font-size: xx-large; font-weight: bold; ">Captin Actions</a>
+    <form action="includes/upload.php" method="post" enctype="multipart/form-data">
+    Upload New Team Logo:
+    <input type="file" name="fileToUpload" id="fileToUpload">
+    <input type="submit" value="Upload Image" name="submit">
+  </form>';
+}
+echo"</div></div>";
+}else{
     header("Location: teams.php");
     exit;
 }
@@ -61,11 +93,8 @@ if (isset($_GET['id'])){
     exit;
 } 
 
-$tesr =GetPlayerNamesFromTeamID(  $conn, $_GET['id']);
-print_r( $tesr);
-//currently this func only returns 1 player, TODO make it return all players and also work out what to do if only 4 players are in a team
-if (isset($_SESSION["username"]) and $_SESSION["userID"] ==$info ['captinID'] ){
-    echo 'e';
-}
+
+
+
 ?> 
 
