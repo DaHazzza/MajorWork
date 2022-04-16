@@ -40,16 +40,16 @@ include 'includes/database.php';
 
 $sql;
 if (isset($_GET['search'])){
- $sql =  "SELECT * FROM teams WHERE teamName LIKE '%".$_GET['search']."%'";
+ $sql =  "SELECT * FROM teams ORDER BY rank WHERE teamName LIKE '%".$_GET['search']."%'";
 } else {
-$sql = "SELECT * FROM teams";}
+$sql = "SELECT * FROM teams  ORDER BY rank";}
 
 if ($result = mysqli_query($conn, $sql)) {
   while ($row = mysqli_fetch_array($result)) {
     echo '<tr> <td>';
     echo $row[8];
     echo '</td> <td>';
-    echo  '<img src="teamLogos/',$row[0],'.png" alt="Italian Trulli" width=40>';
+    echo  '<img src="teamLogos/',$row[2],'" alt="Team Logo" width=40>';
     echo '</td> <td>';
     echo  "<a href='teamPage.php?id=",$row[0],"'>" .$row[1].'</a>';
     echo '</td> <td>';

@@ -1,23 +1,27 @@
 <?php
 $target_dir = "../teamLogos/";
+
+
 $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
 
 $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
 
 $error = 0;
-
+$id = $_POST['teamID'];
 //check if file is an image
 if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
 && $imageFileType != "gif"  ){
-    header("location: ../teams.php?state=inavlidType");
+    header("location: ../teamPage.php?state=invalidType&id=".$id);
     $error =1;
+    exit;
 }
 
 //validate size
 $sizeCheck = getimagesize($_FILES["fileToUpload"]["tmp_name"]);
 if ($sizeCheck[0] != 200 && $sizeCheck[1] != 200 && $error == 0){
-    header("location: ../teams.php?state=inavlidSize");
+    header("location: ../teamPage.php?state=inavlidSize&id=".$id);
     $error = 1;
+    exit;
 }
 
 echo $error;
@@ -25,9 +29,14 @@ echo $error;
 if ($error == 0){
     echo "passed";
     if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
-        header("location: ../teams.php?state=success");
+       // header("location: ../teamPage.php?state=success&id=".$id);
+       echo $target_file;
+       rename($target_file,"../teamLogos/".$id.".".$imageFileType);
+       echo"update database to use logo";
+        //rename($target_file,$id.".".$imageFileType);
     } else {
-        header("location: ../teams.php?state=upldErr");
+        header("location: ../teamPage.php?state=upldErr&id=".$id );
+        exit;
     }
 }
 

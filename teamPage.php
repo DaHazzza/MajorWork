@@ -7,7 +7,6 @@
 <body style="margin:0%;"> 
     <?php
 
-use function PHPSTORM_META\type;
 
  include "includes/header.php";?> <!-- creates the Naviation Bar-->
 </body>
@@ -16,7 +15,7 @@ use function PHPSTORM_META\type;
 include_once("includes/functions.php");
 include_once("includes/database.php");
 $info;
-if (isset($_GET['id'])){
+if (isset($_GET['id']) && $_GET['id'] != ""){
     $info = getTeamInfo($conn,$_GET['id']);
     if  ($info != False){
     echo '
@@ -81,7 +80,14 @@ if (isset($_SESSION["username"]) and $_SESSION["userID"] ==$info ['captinID'] ){
     Upload New Team Logo:
     <input type="file" name="fileToUpload" id="fileToUpload">
     <input type="submit" value="Upload Image" name="submit">
-  </form>';
+    <input type="hidden" name="teamID" value="',$info["teamID"],'" />
+  </form>
+  <form action="includes/renameTeamScript.php" method="post">
+  Rename Team:
+  <input type="text" name="name" id="name">
+  <input type="submit" value="Submit" name="submit">
+  <input type="hidden" name="teamID" value="',$info["teamID"],'" />
+</form>';
 }
 echo"</div></div>";
 }else{
@@ -97,4 +103,5 @@ echo"</div></div>";
 
 
 ?> 
+
 
