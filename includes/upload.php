@@ -1,6 +1,6 @@
 <?php
 $target_dir = "../teamLogos/";
-
+include 'database.php';
 
 $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
 
@@ -28,12 +28,10 @@ echo $error;
 //upload file
 if ($error == 0){
     echo "passed";
-    if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
-       // header("location: ../teamPage.php?state=success&id=".$id);
-       echo $target_file;
-       rename($target_file,"../teamLogos/".$id.".".$imageFileType);
-       echo"update database to use logo";
-        //rename($target_file,$id.".".$imageFileType);
+    if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_dir.$id.".".$imageFileType)) {
+        $sql ='UPDATE teams SET teamLogo ="'.$id.".".$imageFileType.'" WHERE teamID ='.$id;
+        $result = mysqli_query($conn,$sql);
+        header("location: ../teamPage.php?state=success&id=".$id); 
     } else {
         header("location: ../teamPage.php?state=upldErr&id=".$id );
         exit;

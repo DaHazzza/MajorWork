@@ -82,12 +82,43 @@ if (isset($_SESSION["username"]) and $_SESSION["userID"] ==$info ['captinID'] ){
     <input type="submit" value="Upload Image" name="submit">
     <input type="hidden" name="teamID" value="',$info["teamID"],'" />
   </form>
+  ';
+  if (isset($_GET['state'])){
+        $state = $_GET['state'];
+        switch($state){
+            case 'invalidType':
+                echo '<a class="error">Invalid File Type Please use jpg,png,gif,jpeg</a>';
+            case 'inavlidSize':
+                echo'<a class="error">Invalid Image Size Ensure The image is 200 x 200</a>';
+            case'upldErr':
+                echo'<a class="error">Error Uploading Image</a>';
+            case 'success';
+                echo'<a class="success">Succsesfully Changed Logo</a>';
+        }
+  }
+  echo'
   <form action="includes/renameTeamScript.php" method="post">
   Rename Team:
   <input type="text" name="name" id="name">
   <input type="submit" value="Submit" name="submit">
   <input type="hidden" name="teamID" value="',$info["teamID"],'" />
-</form>';
+</form> </br>';
+foreach (GetPlayerNamesFromTeamID($conn, $_GET['id']) as $j => $i){
+    if ($j != $info['captinID']){
+        echo $i.
+        '
+        <form action = "includes/kickPlayer.php" method="post">
+            <input type="hidden" name="teamID" value="',$info["teamID"],'" />
+            <input type="hidden" name="playerID" value="',$j,'" />
+            <input type="submit" value="Kick" name="submit">
+        </form>'.
+        '<form action = "includes/promotePlayer.php" method="post">
+            <input type="hidden" name="teamID" value="',$info["teamID"],'" />
+            <input type="hidden" name="playerID" value="',$j,'" />
+            <input type="submit" value="Promote" name="submit">
+        </form></br>';
+    }
+}
 }
 echo"</div></div>";
 }else{
