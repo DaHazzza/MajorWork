@@ -74,9 +74,13 @@ function loginUser($conn, $username, $password){
 function getTeamInfo($conn,$teamID){
     $sql = "SELECT * FROM teams WHERE teamID = ".$teamID;
     $result = mysqli_query($conn,$sql);
-    if (mysqli_num_rows($result) > 0){
-        $dict = mysqli_fetch_assoc($result);    
-        return $dict; //returns a dictionarry of the team
+    if($result){
+        if (mysqli_num_rows($result) > 0){
+            $dict = mysqli_fetch_assoc($result);    
+            return $dict; //returns a dictionarry of the team
+        }else{
+            return false;
+        }
     }else{
         return false;
     }
@@ -100,4 +104,20 @@ function GetPlayerNamesFromTeamID($conn, $teamID){
 function csvToArr($str){
     $arr = explode(",",$str);
     return $arr;
+}
+
+function getUserInfo($uid,$conn){
+    $sql = 'SELECT * FROM users WHERE id ='.$uid;
+    $result = mysqli_query($conn,$sql);
+    if($result){
+        if (mysqli_num_rows($result) > 0){
+            $dict = mysqli_fetch_assoc($result);    
+            return $dict;
+        }else{
+            return false;
+        }
+    }else{
+        return false;
+    }
+
 }
