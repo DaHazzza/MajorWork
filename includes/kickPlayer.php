@@ -1,9 +1,16 @@
 <?php
 include 'database.php';
+include 'functions.php';
 $uid = $_POST['playerID'];
 $tid = $_POST['teamID'];
+echo $tid;
 
 $sql = 'UPDATE users SET teamID = 0 WHERE id ='.$uid.';';
 $result = mysqli_query($conn,$sql);
+$players = GetPlayerNamesFromTeamID($conn,$tid); #if no more plaers the team will be deleted
+if ($players == false){
+    delTeam($conn,$tid);
+}
+
 header("location: ../teamPage.php?id=".$tid);
 exit;

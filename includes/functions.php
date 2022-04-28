@@ -121,3 +121,8 @@ function getUserInfo($uid,$conn){
     }
 
 }
+
+function delteam($conn,$teamID){
+    $sql = "DELETE FROM teams WHERE teamID = ".$teamID;
+    $result = mysqli_query($conn,$sql);
+}

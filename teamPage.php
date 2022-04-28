@@ -26,7 +26,8 @@ if (isset($_GET['id']) && $_GET['id'] != ""){
         <a style="font-size: large; padding-left: 10px;">#'.$info['rank'].'</a>
         <br>
         <img src="teamLogos/'.$info['teamLogo'].'" alt="Team Logo" style="border-width: 5px; border-style: solid;
-        border-color: Black; border-radius: 10px;">
+        border-color: Black; border-radius: 10px;"><br>
+        <a>ID:'.$info['teamID'].'</a>
     </div>
     <div style="position: absolute; margin-left: 15%; margin-top:5%;"  >
         <ul style="list-style-type:none">
