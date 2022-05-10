@@ -8,11 +8,9 @@
     <?php include "includes/header.php";?> <!-- creates the Naviation Bar-->
 </body>
 
-<a href="createTeam.php" style="color:white;">
-      <button class="createTeamBut">Create Team</button>
-    </a>
 
-<h1 class="center" style="margin: 5px;">Search Teams</h1>
+
+<h1 class="center" style="margin: 5px; margin-top:70px;">Search Teams</h1>
 <div class="searchBar center">
   
 

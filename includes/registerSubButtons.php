@@ -1,5 +1,5 @@
-<div class=" title">
-      <h1>REGISTER AS SUB</h1>
+<div style="margin-top: 70px;">
+  <h1 class="center" style="margin: 5px;">Become A Substitute Player</h1>
       <?php 
       if(isset($_GET["state"])){
         $state = $_GET["state"];

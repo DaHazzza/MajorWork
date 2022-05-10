@@ -10,10 +10,19 @@
 
 <?php 
 include_once "includes/database.php";
-?> <!-- connects to the database -->
 
-<form action="includes/upload.php" method="post" enctype="multipart/form-data">
-  Select image to upload:
-  <input type="file" name="fileToUpload" id="fileToUpload">
-  <input type="submit" value="Upload Image" name="submit">
+if(isset($_SESSION["username"]) == False){
+    header('Location: index.php');
+    exit;
+}
+?> <!-- connects to the database -->
+<div>
+  <h1 class="center" style="margin-top: 70px;">Create A Team</h1>
+  <br>
+  <form class="center" method="POST" action="includes/createTeamScript.php">
+    <label for='teamName' style="padding: 20px;">Team Name: </label><br />
+    <input type="text" name="teamName"> 
+    <input type="hidden" name="uid" value=<?php echo $_SESSION['userID']; ?>>
+    <input type="submit" value="Create" name="submit">
 </form>
+</div>

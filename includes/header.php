@@ -13,7 +13,7 @@
         echo'   
         <li class="navBarLi"><a href="contact.asp">Submit Scores</a></li>
         <li class="navBarLi"><a href="contact.asp">Schedule Game</a></li>
-
+        <li class="navBarLi"><a href="createTeam.php">Create A Team</a></li>
         
         <li class="navBarLi" style="float: right;"><a href="profilePage.php">'.$_SESSION["username"].'</a></li>';
         

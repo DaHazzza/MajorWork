@@ -126,3 +126,16 @@ function delteam($conn,$teamID){
     $sql = "DELETE FROM teams WHERE teamID = ".$teamID;
     $result = mysqli_query($conn,$sql);
 }
+
+function createTeam($teamName, $uid,$conn){
+    $sql = "INSERT INTO teams (teamName,teamLogo,captinID,wins,losses, pointsScored) values (?,?,?,?,?,?)";
+    $stmt = mysqli_stmt_init($conn); 
+    if (!mysqli_stmt_prepare($stmt,$sql)){ //checks statment is valid
+        return False;
+    } else{
+        $defaultLogo = 'default.png';
+        $zero = 0;
+        mysqli_stmt_bind_param($stmt,'ssiiii',$teamName,$defaultLogo,$uid,$zero,$zero,$zero);//set values
+        mysqli_stmt_execute($stmt);//execute 
+    }
+}
