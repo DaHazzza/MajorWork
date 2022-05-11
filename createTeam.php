@@ -25,4 +25,23 @@ if(isset($_SESSION["username"]) == False){
     <input type="hidden" name="uid" value=<?php echo $_SESSION['userID']; ?>>
     <input type="submit" value="Create" name="submit">
 </form>
+<?php   
+if (isset($_GET['state'])){
+    switch($_GET['state']){
+        case 'success':
+            echo "<p class='success center'>Successfully created Team</p>";
+            break;
+        case 'inTeam':
+            echo "<p class='error center'>You are Already In a Team</p>";
+            break;
+        case 'nameErr':
+            echo "<p class='error center'>Invalid Team Name Must be < 32 chars</p>";
+            break;
+        case 'passErr':
+            echo "<p class='error center' >Pass Error</p>";
+            break;
+    }
+}
+
+?>
 </div>

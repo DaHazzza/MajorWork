@@ -121,7 +121,16 @@ function getUserInfo($uid,$conn){
     }
 
 }
-
+function getLatestTeam($conn){
+    $sql = 'SELECT MAX(teamID) FROM teams';
+    $result = mysqli_query($conn,$sql);
+    if ($result){
+        $dict = mysqli_fetch_assoc($result);    
+        return $dict;
+    }else{
+        return false;
+    }
+}
 function delteam($conn,$teamID){
     $sql = "DELETE FROM teams WHERE teamID = ".$teamID;
     $result = mysqli_query($conn,$sql);
@@ -137,5 +146,19 @@ function createTeam($teamName, $uid,$conn){
         $zero = 0;
         mysqli_stmt_bind_param($stmt,'ssiiii',$teamName,$defaultLogo,$uid,$zero,$zero,$zero);//set values
         mysqli_stmt_execute($stmt);//execute 
+        return getLatestTeam($conn)['MAX(teamID)'];
     }
+}
+
+
+
+function joinTeam($uid,$teamID,$conn){
+    $sql = "UPDATE users SET teamID = '".$teamID."' WHERE id =".$uid.";";
+    $result = mysqli_query($conn,$sql);
+    if($result){
+        return true;
+    }else{
+        return false;
+    }
+
 }

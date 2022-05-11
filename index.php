@@ -18,7 +18,7 @@ if(isset($_SESSION['username'])){
         $data =  $_SESSION["username"] ;
         echo($data);}
     echo gettype(GetPlayerNamesFromTeamID($conn,"2"));
-
+   echo  getLatestTeam($conn)[0];
 
     
 ?>

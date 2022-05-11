@@ -56,17 +56,17 @@ if (isset($_GET['id']) && $_GET['id'] != ""){
         </tbody>
         </table>'
     ;
-    ?>
-    <a style="font-size: xx-large; font-weight: bold; ">Past Matches</a>
-    currently only match ids, need to get match info once match frameowrk done
-    <table>
-    <?php foreach(csvToArr($info['previousMatchIds'])as $i){
-        echo '            
-        <tr>
-            <td>',$i,'</td>
+    if ($info['previousMatchIds'] != null){
+        echo '<a style="font-size: xx-large; font-weight: bold; ">Past Matches</a>
+        currently only match ids, need to get match info once match frameowrk done';
+        echo' <table>';
+        foreach(csvToArr($info['previousMatchIds'])as $i){
+            echo '            
+            <tr>
+                <td>',$i,'</td>
 
-        </tr>';
-    } ?>
+            </tr>';
+        }} ?>
             
 
 
@@ -112,6 +112,7 @@ foreach (GetPlayerNamesFromTeamID($conn, $_GET['id']) as $j => $i){
             <input type="hidden" name="teamID" value="',$info["teamID"],'" />
             <input type="hidden" name="playerID" value="',$j,'" />
             <input type="submit" value="Kick" name="submit">
+            <input type="hidden" name="type" value="kick" />
         </form>'.
         '<form action = "includes/promotePlayer.php" method="post">
             <input type="hidden" name="teamID" value="',$info["teamID"],'" />

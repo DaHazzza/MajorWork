@@ -11,6 +11,10 @@ $players = GetPlayerNamesFromTeamID($conn,$tid); #if no more plaers the team wil
 if ($players == false){
     delTeam($conn,$tid);
 }
-
-header("location: ../teamPage.php?id=".$tid);
-exit;
+if ($_POST['type'] == 'kick'){
+    header("location: ../teamPage.php?id=".$tid);
+    exit;
+}elseif($_POST['type'] == 'leave'){
+    header("location: ../profilePage.php");
+    exit;
+}

@@ -7,7 +7,8 @@ if (isset($_POST['uid']) && isset($_POST['teamName'])){
     if($teamName != "" and strlen($teamName) <= 32){
         $uinfo = getUserInfo($uid,$conn);
         if ($uinfo['teamID'] == 0){
-            createTeam($teamName,$uid,$conn);
+            $teamID = createTeam($teamName,$uid,$conn);
+            joinTeam($uid,$teamID,$conn);
             header('Location: ../createTeam.php?state=success');
             exit;
         }else{

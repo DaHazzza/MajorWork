@@ -56,7 +56,7 @@ if ($result = mysqli_query($conn, $sql)) {
     }
 
      echo '<tr> <td>';
-      echo "<a href='test.com'>" .$row[1].'</a>';
+      echo "<a href='profilePage.php?user=".$row[0]."'>" .$row[1].'</a>';
       echo '</td> <td>';
       echo  $subvalue;
       echo '</td> <td>';
