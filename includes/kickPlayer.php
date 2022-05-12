@@ -6,14 +6,15 @@ $tid = $_POST['teamID'];
 echo $tid;
 
 
-
+$players = GetPlayerNamesFromTeamID($conn,$tid);
 
 $sql = 'UPDATE users SET teamID = 0 WHERE id ='.$uid.';';
 $result = mysqli_query($conn,$sql);
 $teamInfo = getTeamInfo($conn,$tid);
-$players = GetPlayerNamesFromTeamID($conn,$tid);
-if ($teamInfo['captinID'] == $uid){
-    print_r($players);
+
+print_r($players);
+if ($teamInfo['captinID'] == $uid and count($players ) > 1  ){
+
     $newCap = array_search( array_values($players)[0],$players);
     $sql = 'UPDATE teams SET captinID = '.$newCap.' WHERE teamID ='.$tid.';';
     $result = mysqli_query($conn,$sql);
