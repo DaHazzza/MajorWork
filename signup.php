@@ -1,6 +1,3 @@
-<?php 
-include_once "includes/database.php";
-?> <!-- connects to the database -->
 
 <!DOCTYPE html>
 <html lang="en">

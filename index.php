@@ -9,16 +9,8 @@
 
 
  include "includes/header.php";
-    include "includes/functions.php";
-    include "includes/database.php";
+
     ?> <!-- creates the Naviation Bar-->
 </body>
 <?php
-if(isset($_SESSION['username'])){
-        $data =  $_SESSION["username"] ;
-        echo($data);}
-    echo gettype(GetPlayerNamesFromTeamID($conn,"2"));
-   echo  getLatestTeam($conn)[0];
-
-    
-?>
+print_r(getMatchInfo(1,$conn));

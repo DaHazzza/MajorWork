@@ -38,7 +38,7 @@ if (isset($_SESSION["userID"])){
 
 
 <?php 
-include 'includes/database.php';
+
 
 $sql;
 if (isset($_GET['search'])){

@@ -132,7 +132,7 @@ function getLatestTeam($conn){
     }
 }
 function delteam($conn,$teamID){
-    $sql = "DELETE FROM teams WHERE teamID = ".$teamID;
+    $sql = "UPDATE teams SET deleted=1 WHERE teamID =".$teamID;
     $result = mysqli_query($conn,$sql);
 }
 
@@ -157,6 +157,18 @@ function joinTeam($uid,$teamID,$conn){
     $result = mysqli_query($conn,$sql);
     if($result){
         return true;
+    }else{
+        return false;
+    }
+
+}
+
+function getMatchInfo($mid,$conn){
+    $sql = "SELECT * FROM matches WHERE matchID=".$mid;
+    $result = mysqli_query($conn,$sql);
+    if ($result){
+        $dict = mysqli_fetch_assoc($result);    
+        return $dict;
     }else{
         return false;
     }

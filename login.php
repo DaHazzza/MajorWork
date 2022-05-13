@@ -8,9 +8,7 @@
     <?php include "includes/header.php";?> <!-- creates the Naviation Bar-->
 </body>
 
-<?php 
-include_once "includes/database.php";
-?> <!-- connects to the database -->
+
 
 <div>
     <header>Login</header>

@@ -34,7 +34,6 @@
 
 
 <?php 
-include 'includes/database.php';
 
 $sql;
 if (isset($_GET['search'])){
@@ -44,17 +43,19 @@ $sql = "SELECT * FROM teams  ORDER BY rank";}
 
 if ($result = mysqli_query($conn, $sql)) {
   while ($row = mysqli_fetch_array($result)) {
-    echo '<tr> <td>';
-    echo $row[8];
-    echo '</td> <td>';
-    echo  '<img src="teamLogos/',$row[2],'" alt="Team Logo" width=40>';
-    echo '</td> <td>';
-    echo  "<a href='teamPage.php?id=",$row[0],"'>" .$row[1].'</a>';
-    echo '</td> <td>';
-    echo  $row[5] ;
-    echo '</td> <td>';
-    echo  $row[6] ;
-    echo '</td>  </tr>';
+    if ($row[9] == 0){
+      echo '<tr> <td>';
+      echo $row[8];
+      echo '</td> <td>';
+      echo  '<img src="teamLogos/',$row[2],'" alt="Team Logo" width=40>';
+      echo '</td> <td>';
+      echo  "<a href='teamPage.php?id=",$row[0],"'>" .$row[1].'</a>';
+      echo '</td> <td>';
+      echo  $row[5] ;
+      echo '</td> <td>';
+      echo  $row[6] ;
+      echo '</td>  </tr>';
     }
   }
+}
 ?>

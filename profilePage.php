@@ -5,9 +5,7 @@
 </head>
 <link rel="stylesheet" href="styleSheet.css">
 <body style="margin:0%;"> 
-    <?php include "includes/header.php";
-    include_once("includes/functions.php");
-    include_once("includes/database.php");?> <!-- creates the Naviation Bar-->
+    <?php include "includes/header.php";?> <!-- creates the Naviation Bar-->
 </body>
 <div> 
     <?php

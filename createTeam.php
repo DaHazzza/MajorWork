@@ -9,7 +9,7 @@
 </body>
 
 <?php 
-include_once "includes/database.php";
+
 
 if(isset($_SESSION["username"]) == False){
     header('Location: index.php');
