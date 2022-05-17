@@ -4,6 +4,7 @@
     <title>Major Work Scheduling site</title>
 </head>
 <link rel="stylesheet" href="styleSheet.css">
+<script src='https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.js'></script>
 <body style="margin:0%;"> 
     <?php
 
@@ -20,16 +21,16 @@ if (isset($_GET['id']) && $_GET['id'] != ""){
         if ($info['deleted'] == 0){ 
         echo '
     <!--i know im bad at css -->
-    <div style="padding-top: 30px; padding-right: 10%; padding-left: 10%;" >
-        <div style="width: 30%; margin: 0; position:absolute">
+    <div style="margin: 10%; margin-top: 50px;" >
+        <div >
             <a style="font-size: xx-large; font-weight: bold; ">'.$info['teamName'].'</a>
             <a style="font-size: large; padding-left: 10px;">#'.$info['rank'].'</a>
             <br>
             <img src="teamLogos/'.$info['teamLogo'].'" alt="Team Logo" style="border-width: 5px; border-style: solid;
-            border-color: Black; border-radius: 10px;"><br>
-            <a>ID:'.$info['teamID'].'</a>
-        </div>
-        <div style="position: absolute; margin-left: 15%; margin-top:5%;"  >
+            border-color: Black; border-radius: 10px;">
+            
+        <a>ID:'.$info['teamID'].'</a>
+        <div  style="display: inline-block; position: relative; bottom: 100px; ">
             <ul style="list-style-type:none">
                 ';
                 foreach (GetPlayerNamesFromTeamID($conn, $_GET['id']) as $j => $i){
@@ -38,7 +39,9 @@ if (isset($_GET['id']) && $_GET['id'] != ""){
                 echo '
             </ul>
         </div>
-        <div style="position: absolute; margin-top: 15%;">
+        
+        </div>
+        <div>
             <table>
             <tbody>
             <tr >
@@ -57,26 +60,27 @@ if (isset($_GET['id']) && $_GET['id'] != ""){
             </table>'
         ;
         if ($info['previousMatchIds'] != null){
-            echo '<a style="font-size: xx-large; font-weight: bold; ">Past Matches</a>';
-            echo' <table>';
+            echo '<button class="collapsible">Past Matches </button>';
+            echo' <div class="content"><table>';
             foreach(csvToArr($info['previousMatchIds'])as $i){
                     $matchInfo = getMatchInfo($i,$conn);
                     if ($matchInfo){
                         $team1Info = getTeamInfo($conn, $matchInfo['team1ID']);
                         $team2Info = getTeamInfo($conn, $matchInfo['team2ID']);
-                        echo '<tr><td><a href="matchPage.php?id='.$matchInfo['matchID'].'">'.$team1Info['teamName']." VS ".$team2Info['teamName'].'</a></td></tr>';
+                        echo '<tr><td><a href="matchPage.php?id='.$matchInfo['matchID'].'">'.$team1Info['teamName']." VS ".$team2Info['teamName'].'</a></td></tr> ';
                     }
             }} ?>
                 
+ </table></div>
 
-
-        </table>
-
+      
+        
         <?php
     if (isset($_SESSION["username"]) and $_SESSION["userID"] ==$info ['captinID'] ){
         //if logged in user if the team captin 
         echo'
-        <a style="font-size: xx-large; font-weight: bold; ">Captin Actions</a>
+        <button class="collapsible">Captin Actions</button>
+        <div class ="content">
         <form action="includes/upload.php" method="post" enctype="multipart/form-data">
         Upload New Team Logo:
         <input type="file" name="fileToUpload" id="fileToUpload">
@@ -121,8 +125,9 @@ if (isset($_GET['id']) && $_GET['id'] != ""){
             </form></br>';
         }
     }
+    echo'</div>';
     }
-    echo"</div></div>";
+    echo"</div>";
 }else{
 echo '<a class="center" style="margin-top: 5%; font-size: 40px;">'.$info['teamName'].' No Longer Exists</a>';
 
@@ -140,5 +145,43 @@ echo '<a class="center" style="margin-top: 5%; font-size: 40px;">'.$info['teamNa
 
 
 ?> 
+    <button class="collapsible">Data</button>
+    <div class="content" >
+    <canvas id='chart'  width="100" height="100"></canvas>
+</div>
+<script>
+    var canvasElement = document.getElementById('chart').getContext('2d');
+    var testChart = new Chart(canvasElement,
+    {
+        type: 'line',
+        data:{
+            labels:['test1','test2'],
+            datasets:[{
+                lable:'e',
+                data:[1,2,3]
+            }]
+        }
+
+    })
 
 
+</script>
+<script>
+var collapseElement = document.getElementsByClassName("collapsible"); //node List (list of elements)
+var i;
+
+for (i = 0; i < collapseElement.length; i++) { //for all elements children of collabseableElement
+    collapseElement[i].addEventListener("click", function() {
+    this.classList.toggle("active");
+    var content = this.nextElementSibling;
+    if (content.style.maxHeight){
+      content.style.maxHeight = null;
+    } else {
+      content.style.maxHeight = content.scrollHeight + "px";
+    } 
+  });
+}
+</script>
+
+
+</div>
