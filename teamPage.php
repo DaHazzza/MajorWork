@@ -146,32 +146,29 @@ echo '<a class="center" style="margin-top: 5%; font-size: 40px;">'.$info['teamNa
 
 ?> 
     <button class="collapsible">Data</button>
-    <div class="content" >
-    <canvas id='chart'  width="100" height="100"></canvas>
+    <div class="content" id='chartDiv' >
+    <canvas style=" border:1px solid #000000;" id='chart' width="900"  height="500" ></canvas>
 </div>
-<script>
-    var canvasElement = document.getElementById('chart').getContext('2d');
-    var testChart = new Chart(canvasElement,
-    {
-        type: 'line',
-        data:{
-            labels:['test1','test2'],
-            datasets:[{
-                lable:'e',
-                data:[1,2,3]
-            }]
-        }
-
-    })
-
+<script type='module'>
+    import lineGraoph from '/MajorWork/includes/graph.js'
+    var data = {
+        yAxis: [5,2,20,25,1,7,3],
+        border: [40,50],
+        lables: ['me Vs E','me Vs E','me Vs E','me Vs E','me Vs E','me Vs E'],
+        yLable: 'Points'
+    }
+    var canvasElement = document.getElementById('chart');
+    var canvasDivWidth = document.getElementById('chartDiv').offsetWidth; // make the canvas as wide as the div
+    canvasElement.width = canvasDivWidth-50
+    lineGraoph(data,canvasElement);
 
 </script>
 <script>
 var collapseElement = document.getElementsByClassName("collapsible"); //node List (list of elements)
 var i;
 
-for (i = 0; i < collapseElement.length; i++) { //for all elements children of collabseableElement
-    collapseElement[i].addEventListener("click", function() {
+for (i = 0; i < collapseElement.length; i++) { //for all elements
+    collapseElement[i].addEventListener("click", function() { //listen for clicks
     this.classList.toggle("active");
     var content = this.nextElementSibling;
     if (content.style.maxHeight){
