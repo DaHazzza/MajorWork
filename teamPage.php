@@ -125,7 +125,6 @@ if (isset($_GET['id']) && $_GET['id'] != ""){
             </form></br>';
         }
     }
-    echo'</div>';
     }
     echo"</div>";
 }else{
@@ -145,22 +144,90 @@ echo '<a class="center" style="margin-top: 5%; font-size: 40px;">'.$info['teamNa
 
 
 ?> 
-    <button class="collapsible">Data</button>
-    <div class="content" id='chartDiv' >
-    <canvas style=" border:1px solid #000000;" id='chart' width="900"  height="500" ></canvas>
-</div>
-<script type='module'>
-    import lineGraoph from '/MajorWork/includes/graph.js'
-    var data = {
-        yAxis: [5,2,20,25,1,7,3],
-        border: [40,50],
-        lables: ['me Vs E','me Vs E','me Vs E','me Vs E','me Vs E','me Vs E'],
-        yLable: 'Points'
+
+<div>
+    <?php
+
+    $arr = [];
+    $lables = [];
+    $teamID = $_GET['id'];
+    $prevMatch = csvToArr($info['previousMatchIds']);
+    
+    foreach($prevMatch as $j => $i){
+        $matchInfo = getMatchInfo($i,$conn) ;  
+        if ($matchInfo){
+            if($teamID == $matchInfo['team1ID']){
+                if($matchInfo['team1Score']){
+                    array_push($arr,$matchInfo['team1Score']);
+                    $team1Name = getTeamInfo($conn,$matchInfo['team1ID'])['teamName'];
+                    $team2Name = getTeamInfo($conn,$matchInfo['team2ID'])['teamName'];
+                    $str = $team1Name." VS ".$team2Name;
+                    array_push($lables,$str);
+                }
+                
+            } 
+            if($teamID == $matchInfo['team2ID']){
+                if($matchInfo['team2Score']){
+                    array_push($arr,$matchInfo['team2Score']);
+                    $team1Name = getTeamInfo($conn,$matchInfo['team1ID'])['teamName'];
+                    $team2Name = getTeamInfo($conn,$matchInfo['team2ID'])['teamName'];
+                    $str = $team1Name." VS ".$team2Name;
+                    array_push($lables,$str);
+                }
+                
+            } 
+        }
+
+
     }
-    var canvasElement = document.getElementById('chart');
-    var canvasDivWidth = document.getElementById('chartDiv').offsetWidth; // make the canvas as wide as the div
-    canvasElement.width = canvasDivWidth-50
-    lineGraoph(data,canvasElement);
+
+    ?>
+</div>
+<script>
+
+</script>
+    <button class="collapsible">Data</button>
+<div class="content" id='chartDiv' >
+    <canvas style=" border:1px solid #000000;" id='chart' width="900"  height="500"  id='canvas'></canvas>
+    <a id='errTxt' class='error'>This Team Must Complete At Least 2 Matches To View This Data</a>
+</div>
+<script type='module'>    
+import lineGraoph from '/MajorWork/includes/graph.js'
+var passedArray = 
+    <?php 
+    if (count($arr) > 1){
+        echo json_encode($arr);
+    }else{
+        echo '"invalid"';
+    }
+     ?>;
+
+    if (passedArray != 'invalid'){
+        var lables = <?php 
+            
+            echo json_encode($lables);
+            ?>
+
+        console.log(lables);
+        
+        var data = {
+            yAxis: passedArray,
+            border: [40,50],
+            lables: lables,
+            yLable: 'Points'
+        }
+        var canvasElement = document.getElementById('chart');
+        var canvasDivWidth = document.getElementById('chartDiv').offsetWidth; // make the canvas as wide as the div
+        var errText = document.getElementById('errTxt');
+        errText.style.display = 'none';
+        canvasElement.width = canvasDivWidth-50
+        lineGraoph(data,canvasElement);
+        console.log('graph')
+    }else{
+        var canvasElement = document.getElementById('chart');
+        canvasElement.style.display = 'none';
+        console.log('err')
+    }
 
 </script>
 <script>

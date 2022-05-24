@@ -20,7 +20,7 @@ if ($teamInfo['captinID'] == $uid and count($players ) > 1  ){
     $sql = 'UPDATE teams SET captinID = '.$newCap.' WHERE teamID ='.$tid.';';
     $result = mysqli_query($conn,$sql);
     echo $result; 
-     exit;
+    exit;
 }
 $players = GetPlayerNamesFromTeamID($conn,$tid); #if no more plaers the team will be deleted
 if ($players == false){
