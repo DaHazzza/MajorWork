@@ -125,8 +125,9 @@ if (isset($_GET['id']) && $_GET['id'] != ""){
             </form></br>';
         }
     }
-    }
     echo"</div>";
+    }
+
 }else{
 echo '<a class="center" style="margin-top: 5%; font-size: 40px;">'.$info['teamName'].' No Longer Exists</a>';
 

@@ -1,20 +1,40 @@
-Catboys ['Cozmooo', '5up', 'Patty-22', 'Slaymish'] 
-Leviathan ['TheRealZeroz', 'Punda-', 'Silveridge', 'SoggyBunningsSnags', 'gishnishgu', 'Rosh-'] 
-0utlaws ['Caltexx', 'CamJamG', 'Rilo_', 'teriina', 'F1ood', 'Lomit-'] 
-Devils ['SpencerPCS', 'OldManFingers', 'OutbackBlaze', 'RUMMYO'] 
-Astrea ['Spencer80720', 'Koalakid-', 'Allycw', 'opal_foush'] 
-Villain ['Oden-_-', 'Rabel-', 'Alyosya'] 
-Cosmic Legion ['ueshi', 'fny_727_', 'tempura_pasta', 'Gekko-', 're-', 'sugijapa_nnn'] 
-Invictus ['DFoot_', 'Fletcherus', 'GuacaNole', 'Liamm-', 'SebShreds'] 
-Last Centurions ['Tipoo', 'CleanMike', 'he_liam', 'SharoHL', 'Vague_'] 
-Angelis Prophets ['Z0diacL0rd-', 'JAB002', 'nuggy_', 'rickrick-', 'Cyc_Shredda', 'Rowdy-'] 
-Echo Japan ['KAZ3538-JAPAN', 'id_hikaru', 'KVN-', 'lluukkeeVR', 'Q_0', 'staRi_vaaa'] 
-Talos ['NewtonHorse', 'Muskokabear', 'snicket1', 'UsualSayo', 'Holo_79', 'Jimbourine'] 
-Fuwa Fuwa Friends ['TONsukeTAIsuke', 'FUMIchi_JP', 'Mi-Rui', 'thaijin0225', 'hikakei', 'Tokage_'] 
-Euphoria ['Jolly-', 'BigBoyBob609', 'BoDx', 'DaHazza', 'DDoink'] 
-Invictus Reserves ['Kronos10101', 'JamesLothbrok', 'LuzzLuz', 'maxatnasa', 'CabageWrecker', 'l3rux'] 
-Entityy ['Scouty25', 'Braealex', 'Travoldboy', 'coiney', 'TacoSon2', 'TimeJarto'] 
-1 Hand ['jellyistaken', 'Kirito178', 'harlcon22', 'LoneWanderer111', 'PeanutDogVR', 'Silver_Sky'] 
-Rebellions ['fish_suzuki', 'Ayu13ayu', 'ChimmaChimmaChanges', 'iKaika_Higashi', 'Its_Kenny_'] 
-Voidless ['Thomas123414', 'Heat_Stroke', 'Ninjamonke._.', 'NZ-Marl', 'Fat_mud420', 'panther3936'] 
-6RoniN ['IROSHI', 'G4B', 'R2_aoki', 'TheNightFox201', 'Tim0129', 'westyoko'] 
+Catboys
+['Cozmooo', '5up', 'Patty-22', 'Slaymish'] 
+Leviathan
+['TheRealZeroz', 'Punda-', 'Silveridge', 'SoggyBunningsSnags', 'gishnishgu', 'Rosh-'] 
+0utlaws
+['Caltexx', 'CamJamG', 'Rilo_', 'teriina', 'F1ood', 'Lomit-'] 
+Devils
+['SpencerPCS', 'OldManFingers', 'OutbackBlaze', 'RUMMYO'] 
+Astrea
+['Spencer80720', 'Koalakid-', 'Allycw', 'opal_foush'] 
+Villain
+['Oden-_-', 'Rabel-', 'Alyosya'] 
+Cosmic Legion
+['ueshi', 'fny_727_', 'tempura_pasta', 'Gekko-', 're-', 'sugijapa_nnn'] 
+Invictus
+['DFoot_', 'Fletcherus', 'GuacaNole', 'Liamm-', 'SebShreds'] 
+Last Centurions
+['Tipoo', 'CleanMike', 'he_liam', 'SharoHL', 'Vague_'] 
+Angelis Prophets
+['Z0diacL0rd-', 'JAB002', 'nuggy_', 'rickrick-', 'Cyc_Shredda', 'Rowdy-'] 
+Echo Japan
+['KAZ3538-JAPAN', 'id_hikaru', 'KVN-', 'lluukkeeVR', 'Q_0', 'staRi_vaaa'] 
+Talos
+['NewtonHorse', 'Muskokabear', 'snicket1', 'UsualSayo', 'Holo_79', 'Jimbourine'] 
+Fuwa Fuwa Friends
+['TONsukeTAIsuke', 'FUMIchi_JP', 'Mi-Rui', 'thaijin0225', 'hikakei', 'Tokage_'] 
+Euphoria
+['Jolly-', 'BigBoyBob609', 'BoDx', 'DaHazza', 'DDoink'] 
+Invictus Reserves
+['Kronos10101', 'JamesLothbrok', 'LuzzLuz', 'maxatnasa', 'CabageWrecker', 'l3rux'] 
+Entityy
+['Scouty25', 'Braealex', 'Travoldboy', 'coiney', 'TacoSon2', 'TimeJarto'] 
+1 Hand
+['jellyistaken', 'Kirito178', 'harlcon22', 'LoneWanderer111', 'PeanutDogVR', 'Silver_Sky'] 
+Rebellions
+['fish_suzuki', 'Ayu13ayu', 'ChimmaChimmaChanges', 'iKaika_Higashi', 'Its_Kenny_'] 
+Voidless
+['Thomas123414', 'Heat_Stroke', 'Ninjamonke._.', 'NZ-Marl', 'Fat_mud420', 'panther3936'] 
+6RoniN
+['IROSHI', 'G4B', 'R2_aoki', 'TheNightFox201', 'Tim0129', 'westyoko'] 

@@ -32,6 +32,19 @@ function convertTFtoBinary($TF){
         return 0;
     }
 }
+
+function getLatestPlayer($conn){
+    $sql = 'SELECT MAX(id) FROM users';
+    $result = mysqli_query($conn,$sql);
+    if ($result){
+        $dict = mysqli_fetch_assoc($result);    
+        return $dict;
+    }else{
+        return false;
+    }
+}
+
+
 function createUser($conn, $username, $password)   {
 $defaultSub = 0;
 $defaultTeam = 0;
@@ -44,6 +57,7 @@ if (!mysqli_stmt_prepare($stmt,$sql)){ //checks statment is valid
 } else{
     mysqli_stmt_bind_param($stmt,'ssii',$username,$password,$defaultSub,$defaultTeam);//set values
     mysqli_stmt_execute($stmt);//execute 
+    return getLatestPlayer($conn)['MAX(id)'];
 }
 
 } 
