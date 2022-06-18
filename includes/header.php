@@ -30,6 +30,9 @@
         }else{
             echo' <li class="navBarLi"><a href="createTeam.php">Create A Team</a></li>';
         }
+        if($_SESSION['isAdmin']){
+            echo' <li class="navBarLi"  style="float: right;   "><a href="adminMenu.php">Admin Menu</a></li>';
+        }
 ;
         
     }else{

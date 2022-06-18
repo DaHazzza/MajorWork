@@ -80,6 +80,7 @@ function loginUser($conn, $username, $password){
         $_SESSION["username"] = $usernameData["username"];
         $_SESSION["sub"] = $usernameData["isSubstitute"];
         $_SESSION["teamID"] = $usernameData["teamID"];
+        $_SESSION["isAdmin"] = $usernameData["isAdmin"];
         header("Location: ../index.php");
         exit;
     }
@@ -148,6 +149,7 @@ function getLatestTeam($conn){
 function delteam($conn,$teamID){
     $sql = "UPDATE teams SET deleted=1 WHERE teamID =".$teamID;
     $result = mysqli_query($conn,$sql);
+    return $result;
 }
 
 function createTeam($teamName, $uid,$conn){
@@ -187,4 +189,37 @@ function getMatchInfo($mid,$conn){
         return false;
     }
 
+}
+
+function delUser($conn, $uid){
+ 
+    $info = getUserInfo($uid,$conn);
+    $tid = $info['teamID'];
+    if ($tid != 0){
+        $players = GetPlayerNamesFromTeamID($conn,$tid);
+
+        $sql = 'UPDATE users SET teamID = 0 WHERE id ='.$uid.';';
+        $result = mysqli_query($conn,$sql);
+        $teamInfo = getTeamInfo($conn,$tid);
+
+        if ($teamInfo['captinID'] == $uid and count($players ) > 1  ){
+        
+            $players = GetPlayerNamesFromTeamID($conn,$tid);    
+            $newCap = array_search( array_values($players)[0],$players);
+            $sql = 'UPDATE teams SET captinID = '.$newCap.' WHERE teamID ='.$tid.';';
+            $result = mysqli_query($conn,$sql);
+            echo $result; 
+            exit;
+        }
+        $players = GetPlayerNamesFromTeamID($conn,$tid); #if no more plaers the team will be deleted
+        if ($players == false){
+            delTeam($conn,$tid);
+        }
+    }
+
+
+    
+    header('Location: kickPlayer.php');
+    $sql = 'DELETE FROM users WHERE id='.$uid;
+    $result = mysqli_query($conn,$sql);
 }

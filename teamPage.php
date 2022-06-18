@@ -20,7 +20,7 @@ if (isset($_GET['id']) && $_GET['id'] != ""){
     if  ($info != False){
         if ($info['deleted'] == 0){ 
         echo '
-    <!--i know im bad at css -->
+    <!--i k now im bad at css -->
     <div style="margin: 10%; margin-top: 50px;" >
         <div >
             <a style="font-size: xx-large; font-weight: bold; ">'.$info['teamName'].'</a>
@@ -29,8 +29,8 @@ if (isset($_GET['id']) && $_GET['id'] != ""){
             <img src="teamLogos/'.$info['teamLogo'].'" alt="Team Logo" style="border-width: 5px; border-style: solid;
             border-color: Black; border-radius: 10px;">
             
-        <a>ID:'.$info['teamID'].'</a>
-        <div  style="display: inline-block; position: relative; bottom: 100px; ">
+            <a>ID:'.$info['teamID'].'</a>
+            <div  style="display: inline-block; position: relative; bottom: 100px; ">
             <ul style="list-style-type:none">
                 ';
                 foreach (GetPlayerNamesFromTeamID($conn, $_GET['id']) as $j => $i){
@@ -39,8 +39,8 @@ if (isset($_GET['id']) && $_GET['id'] != ""){
                 echo '
             </ul>
         </div>
-        
-        </div>
+
+    </div>
         <div>
             <table>
             <tbody>
@@ -60,16 +60,42 @@ if (isset($_GET['id']) && $_GET['id'] != ""){
             </table>'
         ;
         if ($info['previousMatchIds'] != null){
-            echo '<button class="collapsible">Past Matches </button>';
-            echo' <div class="content"><table>';
+            echo '<button class="collapsible">Matches </button>';
+            echo' <div class="content"> <table style="margin-left: 35%;">
+            <tr>
+            <th >Team 1</th>
+            <th > </th>
+            <th >Vs</th>
+            <th > </th>
+            <th >Team 2</th>
+            <th >Time</th>
+            <th >Match Page</th>
+            </tr>';
             foreach(csvToArr($info['previousMatchIds'])as $i){
-                    $matchInfo = getMatchInfo($i,$conn);
-                    if ($matchInfo){
-                        $team1Info = getTeamInfo($conn, $matchInfo['team1ID']);
-                        $team2Info = getTeamInfo($conn, $matchInfo['team2ID']);
-                        echo '<tr><td><a href="matchPage.php?id='.$matchInfo['matchID'].'">'.$team1Info['teamName']." VS ".$team2Info['teamName'].'</a></td></tr> ';
-                    }
-            }} ?>
+                $match = getMatchInfo($i,$conn);
+                $team1Info = getTeamInfo($conn, $match['team1ID']);
+                $team2Info = getTeamInfo($conn, $match['team2ID']);
+                echo '<tr> <td>';
+                echo "<a  class='center' style='color: black; text-decoration: none;' href='teamPage.php?id=".$match['team1ID']."'>  " .$team1Info['teamName'].'  </a>';
+                echo '</td> <td>';
+                echo  '<img  class="center" src="teamLogos/'.$team1Info["teamLogo"].'" alt="Team Logo" width=40>';
+                echo '</td> <td>';
+                echo "<a class='center' style='color: black; text-decoration: none;' href='matchPage.php?id=".$match['matchID']."'>VS</a>" ;
+                echo '</td> <td >';
+                echo  '<img class="center" src="teamLogos/'.$team2Info["teamLogo"].'" alt="Team Logo" width=40>';
+                echo '</td> <td >';
+                echo "<a class='center' style='color: black; text-decoration: none;' href='teamPage.php?id=".$match['team2ID']."'>  " .$team2Info['teamName'].'  </a>';
+                echo '</td> <td>';
+                if ($match['matchTime'] != null){
+                    echo '<a class="center">'.date("M d Y H:i",$match['matchTime'] +( 3600*8)).'</a>';
+                }else{
+                    echo'<a class="center">N/A </a>';
+                }
+                    echo '</td> <td >';     
+                    echo  '<a href="matchPage.php?id='.$match['matchID'].'"><img class="center" src="images/matchLink.png" alt="Match Link" width=40 style="margin-left: 40%;"></a>';
+                    echo '</td>  </tr>';
+            }
+            }echo'</table>';} //taken and adapted from matches.php ?> 
                 
  </table></div>
 
@@ -136,10 +162,7 @@ echo '<a class="center" style="margin-top: 5%; font-size: 40px;">'.$info['teamNa
     header("Location: teams.php");
     exit;
 }
-}else{
-    header("Location: teams.php");
-    exit;
-} 
+
 
 
 
