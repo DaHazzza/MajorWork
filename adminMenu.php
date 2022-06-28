@@ -36,13 +36,32 @@ if(isset($_SESSION["username"]) != False){
             <lable>Delete Team: </lable>
             <input type="text" placeholder="TeamID" name='TeamID'>
             <input type="submit" value="Delete Team" >
+            <?php 
+            if (isset($_GET['state'])){
+                if($_GET['state'] == 'invTid'){
+                  echo'<a class="error">Invalid Team Id</a>';
+                }elseif($_GET['state'] == 'teamPassErr'){
+                    echo'<a class="error">Passing Eror</a>';
+                }
+            }?>
         </form>
         <form method="POST" action="includes/adminDeleteUser.php" onsubmit="return confirm('Confirm');">
             <lable>Delete User: </lable>
             <input type="text" placeholder="UserID" id='uid' name='UserID'>
             <input type="submit" value="Delete User" >
-        </form>
+            <?php             
+            if (isset($_GET['state'])){
+                if($_GET['state'] == 'invUid'){
+                  echo'<a class="error">Invalid User Id</a>';
+                }elseif($_GET['state'] == 'userPassErr'){
+                    echo'<a class="error">Passing Error</a>';
+                }
+            }
+                ?>
     </div>
+            
+        </form>
+
 
     <button class="collapsible">Match Generation</button>
     <div class ="content">

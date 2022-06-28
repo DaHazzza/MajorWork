@@ -12,9 +12,12 @@ if (isset($_SESSION['userID']) && $_SESSION["isAdmin"]== 1){
             exit;
         }else{
             print_r($user);
-           // header("location: ../adminMenu.php?state=teamID");
-           //exit;
+            header("location: ../adminMenu.php?state=invUid");
+           exit;
         }
+    }else{
+        header("location: ../adminMenu.php?state=userPassErr");
+        exit;
     }
 }else{
     header("location: ../index.php");

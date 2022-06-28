@@ -11,10 +11,12 @@ if (isset($_SESSION['userID']) && $_SESSION["isAdmin"]== 1){
             header("location: ../adminMenu.php?state=teamSuccess");
             exit;
         }else{
-            print_r($team);
-           // header("location: ../adminMenu.php?state=teamID");
-           //exit;
+            header("location: ../adminMenu.php?state=invTid");
+           exit;
         }
+    }else{
+        header("location: ../adminMenu.php?state=teamPassErr");
+        exit;
     }
 }else{
     header("location: ../index.php");
