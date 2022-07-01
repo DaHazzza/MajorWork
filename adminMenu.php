@@ -3,7 +3,7 @@
 <head>
     <title>Major Work Scheduling site</title>
 </head>
-<link rel="stylesheet" href="styleSheet.css">
+<link rel="stylesheet" href="stylesheet.css">
 <body style="margin:0%;"> 
     <?php
  include "includes/header.php";?> <!-- creates the Naviation Bar-->
@@ -41,7 +41,7 @@ if(isset($_SESSION["username"]) != False){
                 if($_GET['state'] == 'invTid'){
                   echo'<a class="error">Invalid Team Id</a>';
                 }elseif($_GET['state'] == 'teamPassErr'){
-                    echo'<a class="error">Passing Eror</a>';
+                    echo'<a class="error">Passing Error</a>';
                 }
             }?>
         </form>
@@ -111,9 +111,12 @@ if(isset($_SESSION["username"]) != False){
             </table>
         </div>
         <div style="float: right; width: 50%;">
-            <form method="POST"  onsubmit="return confirm('Doing This Will Forefit any current outgoing matches');">
-                <h1 class='center'>Generate Matches </h1>
+           <h1 class='center'>Leaderboard Actions </h1>
+            <form method="POST" action="includes/generateMatches.php"  onsubmit="return confirm('Doing This Will Forefit any current outgoing matches');">
                 <input style='margin-left: 40%;' type="submit" value="Generate Matches" >
+            </form>
+            <form method="POST" action="includes/updateLeaderboards.php"  onsubmit="return confirm('This Will recalculate all ranks');">
+                <input style='margin-left: 40%;' type="submit" value="Update Leaderboards" >
             </form>
         </div>
     </div>

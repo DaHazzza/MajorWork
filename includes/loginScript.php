@@ -7,11 +7,11 @@ if (isset($_POST['submit'])) { //looks if data is actually valid
     $password = $_POST["Pass"];
 
     if (empty($username) or empty($password)){
-        header("Location: ../Login.php?login=empty");
+        header("Location: ../login.php?login=empty");
         exit;
     }
     loginUser($conn, $username, $password);
 }else{
-    header("Location: ../Login.php");
+    header("Location: ../login.php");
     exit;
 }

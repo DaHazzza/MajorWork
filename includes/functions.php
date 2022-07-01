@@ -65,13 +65,13 @@ function loginUser($conn, $username, $password){
 
     $usernameData = usernameExists($conn, $username); //checks if username is valid
     if ($usernameData == false){
-        header("Location: ../Login.php?login=invalid");
+        header("Location: ../login.php?login=invalid");
         exit;
     }
 
     $passwordOfUser = $usernameData["paswrd"];
     if (!matchingStrings($passwordOfUser, $password)){
-        header("Location: ../Login.php?login=invalid");
+        header("Location: ../login.php?login=invalid");
         exit;
     }else{
         //username and pass is correct
@@ -222,4 +222,23 @@ function delUser($conn, $uid){
     header('Location: kickPlayer.php');
     $sql = 'DELETE FROM users WHERE id='.$uid;
     $result = mysqli_query($conn,$sql);
+}
+
+function submitScores($mid,$t1Score,$t2Score,$conn){
+    $matchinfo = getMatchInfo($mid,$conn);
+    if ($matchinfo){
+        $sql = "UPDATE matches SET team1Score =".$t1Score.", team2Score=".$t2Score.", completed = 1 WHERE matchID=".$mid;
+        $result = mysqli_query($conn,$sql);
+        if($result){
+            return true;
+        }else{
+            return false;
+        }
+    }else{
+        return false;
+    }
+}
+
+function ffMatch($mid, $conn){
+
 }

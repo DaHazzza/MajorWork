@@ -3,7 +3,7 @@
 <head>
     <title>Major Work Scheduling site</title>
 </head>
-<link rel="stylesheet" href="styleSheet.css">
+<link rel="stylesheet" href="stylesheet.css">
 <script src='https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.js'></script>
 <body style="margin:0%;"> 
     <?php
@@ -33,8 +33,14 @@ if (isset($_GET['id']) && $_GET['id'] != ""){
             <div  style="display: inline-block; position: relative; bottom: 100px; ">
             <ul style="list-style-type:none">
                 ';
+                $plrCount = 0;
                 foreach (GetPlayerNamesFromTeamID($conn, $_GET['id']) as $j => $i){
+                    $plrCount += 1;
                     echo '<li class="teamPlrLi"> <a class="teamPlrLiA"';if($j == $info["captinID"]){echo'style="text-decoration: underline;"';} echo' href="profilePage.php?user=',$j,'">',$i,'</a></li>';
+
+                }
+                if ($plrCount < 6){
+                    echo '<li class="teamPlrLi"> <form action="includes/requestToJoin.php" method=POST><input type="submit" value="Ask To Join"> <input type="hidden" name="id" value="'.$_GET['id'].'" /></form></li>';
                 }
                 echo '
             </ul>
@@ -59,7 +65,7 @@ if (isset($_GET['id']) && $_GET['id'] != ""){
             </tbody>
             </table>'
         ;
-        if ($info['previousMatchIds'] != null){
+        if ($info['matchIds'] != null){
             echo '<button class="collapsible">Matches </button>';
             echo' <div class="content"> <table style="margin-left: 35%;">
             <tr>
@@ -71,7 +77,7 @@ if (isset($_GET['id']) && $_GET['id'] != ""){
             <th >Time</th>
             <th >Match Page</th>
             </tr>';
-            foreach(csvToArr($info['previousMatchIds'])as $i){
+            foreach(csvToArr($info['matchIds'])as $i){
                 $match = getMatchInfo($i,$conn);
                 $team1Info = getTeamInfo($conn, $match['team1ID']);
                 $team2Info = getTeamInfo($conn, $match['team2ID']);
@@ -175,9 +181,11 @@ echo '<a class="center" style="margin-top: 5%; font-size: 40px;">'.$info['teamNa
     $arr = [];
     $lables = [];
     $teamID = $_GET['id'];
-    $prevMatch = csvToArr($info['previousMatchIds']);
+    $prevMatch = csvToArr($info['matchIds']);
+    $count = 0;
     
     foreach($prevMatch as $j => $i){
+        $count += 1;
         $matchInfo = getMatchInfo($i,$conn) ;  
         if ($matchInfo){
             if($teamID == $matchInfo['team1ID']){
@@ -207,10 +215,7 @@ echo '<a class="center" style="margin-top: 5%; font-size: 40px;">'.$info['teamNa
 
     ?>
 </div>
-<script>
-
-</script>
-    <button class="collapsible">Data</button>
+<button class="collapsible">Data</button>
 <div class="content" id='chartDiv' >
     <canvas style=" border:1px solid #000000;" id='chart' width="900"  height="500"  id='canvas'></canvas>
     <a id='errTxt' class='error'>This Team Must Complete At Least 2 Matches To View This Data</a>
@@ -218,6 +223,7 @@ echo '<a class="center" style="margin-top: 5%; font-size: 40px;">'.$info['teamNa
 <script type='module'>    
 import lineGraoph from '/MajorWork/includes/graph.js'
 var passedArray = 
+
     <?php 
     if (count($arr) > 1){
         echo json_encode($arr);
@@ -226,32 +232,33 @@ var passedArray =
     }
      ?>;
 
-    if (passedArray != 'invalid'){
-        var lables = <?php 
-            
-            echo json_encode($lables);
-            ?>
-
-        console.log(lables);
+console.log(passedArray);
+if (passedArray != 'invalid'){
+    var lables = <?php 
         
-        var data = {
-            yAxis: passedArray,
-            border: [40,50],
-            lables: lables,
-            yLable: 'Points'
-        }
-        var canvasElement = document.getElementById('chart');
-        var canvasDivWidth = document.getElementById('chartDiv').offsetWidth; // make the canvas as wide as the div
-        var errText = document.getElementById('errTxt');
-        errText.style.display = 'none';
-        canvasElement.width = canvasDivWidth-50
-        lineGraoph(data,canvasElement);
-        console.log('graph')
-    }else{
-        var canvasElement = document.getElementById('chart');
-        canvasElement.style.display = 'none';
-        console.log('err')
+        echo json_encode($lables);
+        ?>
+
+    console.log(lables);
+    
+    var data = {
+        yAxis: passedArray,
+        border: [40,50],
+        lables: lables,
+        yLable: 'Points'
     }
+    var canvasElement = document.getElementById('chart');
+    var canvasDivWidth = document.getElementById('chartDiv').offsetWidth; // make the canvas as wide as the div
+    var errText = document.getElementById('errTxt');
+    errText.style.display = 'none';
+    canvasElement.width = canvasDivWidth-50
+    lineGraoph(data,canvasElement);
+    console.log('graph')
+}else{
+    var canvasElement = document.getElementById('chart');
+    canvasElement.style.display = 'none';
+    console.log('err')
+}
 
 </script>
 <script>

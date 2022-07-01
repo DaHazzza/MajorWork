@@ -8,17 +8,17 @@ if (isset($_POST['submit'])) { //looks if data is actually valid
     $confirmPass = $_POST["confirmPass"];//get data
 
     if (!matchingStrings($password, $confirmPass)){
-        header("Location: ../Signup.php?signup=confirm");
+        header("Location: ../signup.php?signup=confirm");
         exit;
     }
 
     if (empty($username) or empty($password)){
-        header("Location: ../Signup.php?signup=empty");
+        header("Location: ../signup.php?signup=empty");
         exit;
     }
 
     if (usernameExists($conn, $username)){
-        header("Location: ../Signup.php?signup=exists");
+        header("Location: ../signup.php?signup=exists");
         exit;
     }
 
