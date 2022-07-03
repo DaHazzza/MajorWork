@@ -224,12 +224,63 @@ function delUser($conn, $uid){
     $result = mysqli_query($conn,$sql);
 }
 
-function submitScores($mid,$t1Score,$t2Score,$conn){
+function recalcPoints($teamID, $conn){
+    $teamInfo = getTeamInfo($conn,$teamID);
+    if($teamInfo){
+        $w = $teamInfo['wins'];
+        $l = $teamInfo['losses'];
+        $p = $teamInfo['pintsScored'];
+        $score = ($w * $p) / ($w + $l);
+        $sql = 'UPDATE teams SET score = '.strval($score).' WHERE teamID = '.$teamID;
+        return mysqli_query($conn, $sql);
+    }
+}
+
+function getTeamJoinReq($tid, $conn){
+    $sql = 'SELECT * FROM joinrequests WHERE  teamId = '.$tid;
+    return mysqli_query($conn, $sql);
+}
+
+function addWin($conn, $teamID){
+    $teamInfo = getTeamInfo($conn, $teamID);
+    if($teamInfo){
+        $sql = 'UPDATE teams SET  wins = '.strval($teamInfo['wins']+1).'  WHERE teamID = '.$teamID;
+        return mysqli_query($conn, $sql);
+    }
+}
+function addLoss($conn, $teamID){
+    $teamInfo = getTeamInfo($conn, $teamID);
+    if($teamInfo){
+        $sql = 'UPDATE teams SET  wins = '.strval($teamInfo['wins']-1).'  WHERE teamID = '.$teamID;
+        return mysqli_query($conn, $sql);
+    }
+}
+
+function addPts($conn, $tid, $pts){
+    $teamInfo = getTeamInfo($conn, $tid);
+    if ($teamInfo){
+        $sql = 'UPDATE teams SET pointsScored = '.strval($teamInfo['pointsScored']+$pts).' WHERE teamID = '.$tid;
+        return mysqli_query($conn , $sql);
+        }
+}
+
+function submitScores($mid,$t1Score,$team1ID,$t2Score,$team2ID,$conn){
     $matchinfo = getMatchInfo($mid,$conn);
     if ($matchinfo){
         $sql = "UPDATE matches SET team1Score =".$t1Score.", team2Score=".$t2Score.", completed = 1 WHERE matchID=".$mid;
         $result = mysqli_query($conn,$sql);
         if($result){
+            addPts($conn, $team1ID, $t1Score);
+            addPts($conn, $team2ID, $t2Score);
+            if($t1Score > $t2Score){
+                addWin($conn, $team1ID);
+                addLoss($conn, $team2ID);
+            }else{
+                addWin($conn, $team2ID);
+                addLoss($conn, $team1ID);
+            }
+            recalcPoints($team1ID, $conn);
+            recalcPoints($team2ID, $conn);
             return true;
         }else{
             return false;
@@ -237,8 +288,4 @@ function submitScores($mid,$t1Score,$t2Score,$conn){
     }else{
         return false;
     }
-}
-
-function ffMatch($mid, $conn){
-
 }

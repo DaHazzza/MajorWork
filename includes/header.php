@@ -2,6 +2,11 @@
     session_start();
     include_once("database.php"); 
     include_once("functions.php");
+    //update team id incase user changes teams
+    if(isset($_SESSION['userID'])){
+        $_SESSION["teamID"] = (getUserInfo($_SESSION['userID'],$conn))["teamID"];
+    }
+
 ?>
 <ul class="navBarUl">
     <img class="navBarIcon" src="images/navMenuIcon.PNG">
@@ -21,10 +26,15 @@
            
             ';
             if($teamInfo['captinID'] == $_SESSION['userID']){
+                $result =  getTeamJoinReq($userInfo['teamID'],$conn);
+                if(mysqli_num_rows($result) > 0){
+                    echo'<li class="navBarLi" style="float: right;"><a href="requests.php" style="padding: 0;"><img class="center" src="images/notif.png" alt="Notification" width=30 style="margin-top: 30%;"></a></li>';
+                }  
                 echo'   
                 <li class="navBarLi"><a href="contact.asp">Submit Scores</a></li>
                 <li class="navBarLi"><a href="contact.asp">Schedule Game</a></li>
                 ';
+
             }
 
         }else{

@@ -24,7 +24,7 @@ if (isset($_GET['id']) && $_GET['id'] != ""){
     <div style="margin: 10%; margin-top: 50px;" >
         <div >
             <a style="font-size: xx-large; font-weight: bold; ">'.$info['teamName'].'</a>
-            <a style="font-size: large; padding-left: 10px;">#'.$info['rank'].'</a>
+            <a style="font-size: large; padding-left: 10px;">'.$info['score'].'.Pts</a>
             <br>
             <img src="teamLogos/'.$info['teamLogo'].'" alt="Team Logo" style="border-width: 5px; border-style: solid;
             border-color: Black; border-radius: 10px;">
@@ -39,8 +39,16 @@ if (isset($_GET['id']) && $_GET['id'] != ""){
                     echo '<li class="teamPlrLi"> <a class="teamPlrLiA"';if($j == $info["captinID"]){echo'style="text-decoration: underline;"';} echo' href="profilePage.php?user=',$j,'">',$i,'</a></li>';
 
                 }
-                if ($plrCount < 6){
-                    echo '<li class="teamPlrLi"> <form action="includes/requestToJoin.php" method=POST><input type="submit" value="Ask To Join"> <input type="hidden" name="id" value="'.$_GET['id'].'" /></form></li>';
+                if ($plrCount < 6 and isset($_SESSION['userID']) and $_SESSION['teamID'] == 0){
+                    if(isset($_GET['state'])){
+                        if($_GET['state'] == 'outgoing'){
+                            echo '<li class="teamPlrLi"><a class="error">Already Sent A Request To This Team</a></li>';
+                        }elseif($_GET['state'] == 'sqlerr'){
+                            echo '<li class="teamPlrLi"><a class="error">Database Error</a></li>';
+                        }
+                    }else{
+                     echo '<li class="teamPlrLi"> <form action="includes/requestToJoin.php" method=POST><input type="submit" value="Ask To Join"> <input type="hidden" name="id" value="'.$_GET['id'].'" /></form></li>';   
+                    }
                 }
                 echo '
             </ul>

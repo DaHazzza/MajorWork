@@ -29,8 +29,8 @@
                 <div class="searchBar center">
                 <img src="teamLogos/'.$teamInfo['teamLogo'].'" alt="Team Logo" width=40>
                 <a style="font-size: 40px; font-weight: bold; text-decoration: none; color: black;" href="teamPage.php?id='.$teamInfo["teamID"].'">'.$teamInfo['teamName'].'</a>';
-                if ($teamInfo['rank'] != null){
-                    echo '<a style="font-size: large; padding-left: 10px;">#'.$teamInfo['rank'].'</a>';
+                if ($teamInfo['score'] != 0){
+                    echo '<a style="font-size: large; padding-left: 10px;">#'.$teamInfo['score'].'</a>';
                 }
                
                 if(isset($_GET["user"]) == false){

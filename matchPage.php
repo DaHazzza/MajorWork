@@ -30,9 +30,9 @@ if (isset($_GET['id'])){
             <th> <a href="teamPage.php?id='.$team2Info['teamID'].'"><img src="teamLogos/'.$team2Info['teamLogo'].'" style="margin-right: 20px;"></a></th>
         </tr>
         <tr>
-            <td><a class="center" style="font-size: 40px;">'.$team1Info['teamName'].'</a><a class="center">#'.$team1Info['rank'].'</a></td>
+            <td><a class="center" style="font-size: 40px;">'.$team1Info['teamName'].'</a><a class="center">#'.$team1Info['score'].'</a></td>
             <td><a></a></td>
-            <td><a class="center" style="font-size: 40px;">'.$team2Info['teamName'].'</a><a class="center">#'.$team2Info['rank'].'</a></td>
+            <td><a class="center" style="font-size: 40px;">'.$team2Info['teamName'].'</a><a class="center">#'.$team2Info['score'].'</a></td>
         </tr>
         </table>
         </div>

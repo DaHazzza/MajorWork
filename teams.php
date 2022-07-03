@@ -23,7 +23,7 @@
 <div class="center">
 <table>
   <tr>
-    <th>Rank</th>
+    <th>Score</th>
     <th>Logo</th>
     <th>TeamName</th>
     <th>Wins</th>
@@ -37,9 +37,9 @@
 
 $sql;
 if (isset($_GET['search'])){
- $sql =  "SELECT * FROM teams ORDER BY rank WHERE teamName LIKE '%".$_GET['search']."%'";
+ $sql =  "SELECT * FROM teams ORDER BY score DESC WHERE teamName LIKE '%".$_GET['search']."%'";
 } else {
-$sql = "SELECT * FROM teams  ORDER BY rank";}
+$sql = "SELECT * FROM teams  ORDER BY score DESC";}
 
 if ($result = mysqli_query($conn, $sql)) {
   while ($row = mysqli_fetch_array($result)) {
