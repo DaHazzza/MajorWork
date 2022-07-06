@@ -46,16 +46,15 @@ function getLatestPlayer($conn){
 
 
 function createUser($conn, $username, $password)   {
-$defaultSub = 0;
 $defaultTeam = 0;
 //using prepared statments to upload data (https://www.youtube.com/watch?v=I4JYwRIjX6c)
-$sql = "INSERT INTO users (username,paswrd,isSubstitute,teamID) values (?,?,?,?)"; //template
+$sql = "INSERT INTO users (username,paswrd,teamID) values (?,?,?)"; //template
 $stmt = mysqli_stmt_init($conn); //conncets and initialises a statment
 if (!mysqli_stmt_prepare($stmt,$sql)){ //checks statment is valid
     //if not
     header("Location: ../Signup.php?signup=sqlerr");
 } else{
-    mysqli_stmt_bind_param($stmt,'ssii',$username,$password,$defaultSub,$defaultTeam);//set values
+    mysqli_stmt_bind_param($stmt,'ssii',$username,$password,$defaultTeam);//set values
     mysqli_stmt_execute($stmt);//execute 
     return getLatestPlayer($conn)['MAX(id)'];
 }

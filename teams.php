@@ -22,7 +22,7 @@
 
 <div class="center">
 <table>
-  <tr>
+  <tr  style="background-color: rgb(220,220,220);">
     <th>Score</th>
     <th>Logo</th>
     <th>TeamName</th>
@@ -44,16 +44,16 @@ $sql = "SELECT * FROM teams  ORDER BY score DESC";}
 if ($result = mysqli_query($conn, $sql)) {
   while ($row = mysqli_fetch_array($result)) {
     if ($row[9] == 0){
-      echo '<tr> <td>';
-      echo $row[8];
+      echo '<tr  style="background-color: rgb(240,240,240);"> <td>';
+      echo '<a class="center">'.$row[8].'</a>';
       echo '</td> <td>';
-      echo  '<img src="teamLogos/',$row[2],'" alt="Team Logo" width=40>';
+      echo  '<img src="teamLogos/',$row[2],'" alt="Team Logo" width=40 class="center">';
       echo '</td> <td>';
-      echo  "<a href='teamPage.php?id=",$row[0],"'>" .$row[1].'</a>';
+      echo  "<a class='center remHref' href='teamPage.php?id=",$row[0],"'>" .$row[1].'</a>';
       echo '</td> <td>';
-      echo  $row[5] ;
+      echo  '<a class="center">'.$row[5].'</a>';
       echo '</td> <td>';
-      echo  $row[6] ;
+      echo  '<a class="center">'.$row[6].'</a>';
       echo '</td>  </tr>';
     }
   }

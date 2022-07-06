@@ -16,7 +16,7 @@
 
 <div class="center">
 <table style="width: 30%;" >
-  <tr>
+  <tr style="background-color: rgb(220,220,220);">
     <th >Team 1</th>
     <th > </th>
     <th >Vs</th>
@@ -36,14 +36,14 @@ if ($result = mysqli_query($conn, $sql)) {
       if($row[8] == 0){
             $team1Info = getTeamInfo($conn, $row[1]);
             $team2Info = getTeamInfo($conn, $row[2]);
-            echo '<tr> <td>';
+            echo '<tr style="background-color: rgb(240,240,240);"> <td>';
             echo "<a  class='center' style='color: black; text-decoration: none;' href='teamPage.php?id=".$row[1]."'>  " .$team1Info['teamName'].'  </a>';
             echo '</td> <td>';
-            echo  '<img  class="center" src="teamLogos/'.$team1Info["teamLogo"].'" alt="Team Logo" width=40>';
+            echo  '<a class="center"><img src="teamLogos/'.$team1Info["teamLogo"].'" alt="Team Logo" width=40></a>';
             echo '</td> <td>';
             echo "<a class='center' style='color: black; text-decoration: none;' href='matchPage.php?id=".$row[0]."'>VS</a>" ;
             echo '</td> <td >';
-            echo  '<img class="center" src="teamLogos/'.$team2Info["teamLogo"].'" alt="Team Logo" width=40>';
+            echo  '<a class="center"><img class="center" src="teamLogos/'.$team2Info["teamLogo"].'" alt="Team Logo" width=40></a>';
             echo '</td> <td >';
             echo "<a class='center' style='color: black; text-decoration: none;' href='teamPage.php?id=".$row[2]."'>  " .$team2Info['teamName'].'  </a>';
             echo '</td> <td>';
@@ -53,7 +53,7 @@ if ($result = mysqli_query($conn, $sql)) {
                 echo'<a class="center">N/A </a>';
             }
                 echo '</td> <td >';     
-                echo  '<a href="matchPage.php?id='.$row[0].'"><img class="center" src="images/matchLink.png" alt="Match Link" width=40 style="margin-left: 40%;"></a>';
+                echo  '<a href="matchPage.php?id='.$row[0].'"><img src="images/matchLink.png" alt="Match Link" width=40 style="margin-left: 40%;"></a>';
                 echo '</td>  </tr>';
         }
     }

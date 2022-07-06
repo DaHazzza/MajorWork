@@ -14,7 +14,7 @@
     <li class="navBarLi"><a href="index.php">Home</a></li>
     <li class="navBarLi"><a href="teams.php">Teams</a></li>
     <li class="navBarLi"><a href="matches.php">Matches</a></li>
-    <li class="navBarLi"><a href="Substitute.php">Substitutes</a></li>
+    <li class="navBarLi"><a href="Players.php">Players</a></li>
 
     <?php 
     if (isset($_SESSION["userID"])){
