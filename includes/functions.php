@@ -11,7 +11,7 @@ function usernameExists($conn, $username){
     $sqlCode = "SELECT * FROM users WHERE username = ?;";
     $stmt = mysqli_stmt_init($conn);
     if (!mysqli_stmt_prepare($stmt, $sqlCode)) { //ckecks if sql code is not valid
-        header("Location: ../Signup.php?signup=sqlerr");
+        header("Location: ../signup.php?signup=sqlerr");
         exit;
     }
     mysqli_stmt_bind_param($stmt, "s", $username);
@@ -54,7 +54,8 @@ if (!mysqli_stmt_prepare($stmt,$sql)){ //checks statment is valid
     //if not
     header("Location: ../Signup.php?signup=sqlerr");
 } else{
-    mysqli_stmt_bind_param($stmt,'ssii',$username,$password,$defaultTeam);//set values
+    $hashed_pass = password_hash($password, PASSWORD_DEFAULT);
+    mysqli_stmt_bind_param($stmt,'ssi',$username,$hashed_pass,$defaultTeam);//set values
     mysqli_stmt_execute($stmt);//execute 
     return getLatestPlayer($conn)['MAX(id)'];
 }
@@ -68,8 +69,8 @@ function loginUser($conn, $username, $password){
         exit;
     }
 
-    $passwordOfUser = $usernameData["paswrd"];
-    if (!matchingStrings($passwordOfUser, $password)){
+    $hashedPass = $usernameData["paswrd"];
+    if (!password_verify($password, $hashedPass)){
         header("Location: ../login.php?login=invalid");
         exit;
     }else{
@@ -228,7 +229,7 @@ function recalcPoints($teamID, $conn){
     if($teamInfo){
         $w = $teamInfo['wins'];
         $l = $teamInfo['losses'];
-        $p = $teamInfo['pintsScored'];
+        $p = $teamInfo['pointsScored'];
         $score = ($w * $p) / ($w + $l);
         $sql = 'UPDATE teams SET score = '.strval($score).' WHERE teamID = '.$teamID;
         return mysqli_query($conn, $sql);
@@ -243,6 +244,7 @@ function getTeamJoinReq($tid, $conn){
 function addWin($conn, $teamID){
     $teamInfo = getTeamInfo($conn, $teamID);
     if($teamInfo){
+        echo $teamInfo['wins']+1;
         $sql = 'UPDATE teams SET  wins = '.strval($teamInfo['wins']+1).'  WHERE teamID = '.$teamID;
         return mysqli_query($conn, $sql);
     }
@@ -250,7 +252,7 @@ function addWin($conn, $teamID){
 function addLoss($conn, $teamID){
     $teamInfo = getTeamInfo($conn, $teamID);
     if($teamInfo){
-        $sql = 'UPDATE teams SET  wins = '.strval($teamInfo['wins']-1).'  WHERE teamID = '.$teamID;
+        $sql = 'UPDATE teams SET  losses = '.strval($teamInfo['losses']+1).'  WHERE teamID = '.$teamID;
         return mysqli_query($conn, $sql);
     }
 }
@@ -263,28 +265,17 @@ function addPts($conn, $tid, $pts){
         }
 }
 
-function submitScores($mid,$t1Score,$team1ID,$t2Score,$team2ID,$conn){
-    $matchinfo = getMatchInfo($mid,$conn);
-    if ($matchinfo){
-        $sql = "UPDATE matches SET team1Score =".$t1Score.", team2Score=".$t2Score.", completed = 1 WHERE matchID=".$mid;
-        $result = mysqli_query($conn,$sql);
-        if($result){
-            addPts($conn, $team1ID, $t1Score);
-            addPts($conn, $team2ID, $t2Score);
-            if($t1Score > $t2Score){
-                addWin($conn, $team1ID);
-                addLoss($conn, $team2ID);
-            }else{
-                addWin($conn, $team2ID);
-                addLoss($conn, $team1ID);
-            }
-            recalcPoints($team1ID, $conn);
-            recalcPoints($team2ID, $conn);
-            return true;
-        }else{
-            return false;
-        }
+function addToTeam($mid,$t1Score,$team1ID,$t2Score,$team2ID,$conn){
+    addPts($conn, $team1ID, $t1Score);
+    addPts($conn, $team2ID, $t2Score);
+    if($t1Score > $t2Score){
+        addWin($conn, $team1ID);
+        addLoss($conn, $team2ID);
     }else{
-        return false;
+        addWin($conn, $team2ID);
+        addLoss($conn, $team1ID);
     }
+    recalcPoints($team1ID, $conn);
+    recalcPoints($team2ID, $conn);
+    return true;
 }

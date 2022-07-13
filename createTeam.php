@@ -8,6 +8,11 @@
     <?php include "includes/header.php";?> <!-- creates the Naviation Bar-->
 </body>
 
+<div class="tooltip" style= "position: fixed; bottom: 0; right: 0;">
+    <div style="float: left; width: 350px; background-color: rgb(220,220,220);  padding:10px;" class="tooltiptext"><a >Enter a team Name in the feild to create a team</a></div>
+    <a ><img style="width: 60px; padding: 20px;" src="images/help.png"></a> 
+</div>
+
 <?php 
 
 

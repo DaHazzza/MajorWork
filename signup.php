@@ -8,9 +8,15 @@
 <body style="margin:0%;"> 
     <?php include "includes/header.php";?> <!-- creates the Naviation Bar-->
 </body>
-<div>
-    <header>Create An Account</header>
-    <form action="includes/signUpScript.php" method="POST"> <!--once submit button pressed runs the php file and posts the data-->
+
+<div class="tooltip" style= "position: fixed; bottom: 0; right: 0;">
+    <div style="float: left; width: 350px; background-color: rgb(220,220,220);  padding:10px;" class="tooltiptext"><a >Create an account. make a user name and type the password twice to ensure there is no typing errors</a></div>
+    <a ><img style="width: 60px; padding: 20px;" src="images/help.png"></a> 
+</div>
+
+<div >
+    <h1>Create An Account</h1>
+    <form action="includes/signUpScript.php" method="POST" > <!--once submit button pressed runs the php file and posts the data-->
             <input type="text" name="Username" placeholder="Username:">
             <br>
             <input type="password" name="Pass" placeholder="Password:">

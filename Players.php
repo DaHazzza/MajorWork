@@ -10,6 +10,11 @@
 include "includes/header.php";?> <!-- creates the Naviation Bar-->
 </body>
 
+<div class="tooltip" style= "position: fixed; bottom: 0; right: 0;">
+    <div style="float: left; width: 350px; background-color: rgb(220,220,220);  padding:10px;" class="tooltiptext"><a >A List of all players. Click on a players name or team to be taken to their page. use the searchbar to find a specific user</a></div>
+    <a ><img style="width: 60px; padding: 20px;" src="images/help.png"></a> 
+</div>
+
 <h1 class="center" style="margin: 5px;">Search Players</h1>
 <div class="searchBar center">
   

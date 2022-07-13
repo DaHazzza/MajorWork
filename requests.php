@@ -5,6 +5,11 @@
 </head>
 <link rel="stylesheet" href="stylesheet.css">
 
+<div class="tooltip" style= "position: fixed; bottom: 0; right: 0;">
+    <div style="float: left; width: 350px; background-color: rgb(220,220,220);  padding:10px;" class="tooltiptext"><a >As a team captin anyone who requests to join your team will show up here</a></div>
+    <a ><img style="width: 60px; padding: 20px;" src="images/help.png"></a> 
+</div>
+
 <body style="margin:0%;"> 
     <?php
 

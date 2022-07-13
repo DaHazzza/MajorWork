@@ -6,7 +6,7 @@ include_once("../includes/database.php");
 $dict = [];
 
 $currentTeam;
-$lines = file('teams.txt', FILE_IGNORE_NEW_LINES);
+$lines = file('newTeams.txt', FILE_IGNORE_NEW_LINES);
 $count = 0;
 foreach($lines as $value){
     if (($count + 1) % 2 != 0){
@@ -21,6 +21,7 @@ foreach($lines as $value){
             $trimmed = trim($i, "[ ");
             $trimmed = trim($trimmed, "] ");
             $trimmed = trim($trimmed, "' ");
+            echo $trimmed."<br>";
             array_push($plrArr, $trimmed);
         }
         $dict[$currentTeam] = $plrArr;
@@ -33,7 +34,7 @@ foreach($dict as $teamName => $value){
     $tid;
     foreach($value as $key => $player){
         if ($key == 0){
-            $uid = createUser($conn, $player, 'pass');
+           $uid = createUser($conn, $player, 'pass');
             $tid = createTeam($teamName,$uid,$conn);
             joinTeam($uid,$tid,$conn);
         }else{

@@ -12,6 +12,11 @@
     ?> <!-- creates the Naviation Bar-->
 </body>
 
+<div class="tooltip" style= "position: fixed; bottom: 0; right: 0;">
+    <div style="float: left; width: 350px; background-color: rgb(220,220,220);  padding:10px;" class="tooltiptext"><a >This page Displays all the matches which are to be played. click the match page icon to go to the match page</a></div>
+    <a ><img style="width: 60px; padding: 20px;" src="images/help.png"></a> 
+</div>
+
 <h1 class="center" style="margin: 5px; margin-top: 60px;">Upcoming Matches</h1>
 
 <div class="center">

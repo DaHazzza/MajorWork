@@ -12,6 +12,11 @@
  include "includes/header.php";?> <!-- creates the Naviation Bar-->
 </body>
 
+<div class="tooltip" style= "position: fixed; bottom: 0; right: 0;">
+    <div style="float: left; width: 350px; background-color: rgb(220,220,220);  padding:10px;" class="tooltiptext"><a >This displays the details of a team. if the team has played matches in the past they will apear. if the team has played more than 2 matches a graph will be generated of their points history. If you are the captain you can manage the team here. The underlined user is the team captain</a></div>
+    <a ><img style="width: 60px; padding: 20px;" src="images/help.png"></a> 
+</div>
+
 <?php
 
 $info;
@@ -76,7 +81,7 @@ if (isset($_GET['id']) && $_GET['id'] != ""){
         if ($info['matchIds'] != null){
             echo '<button class="collapsible">Matches </button>';
             echo' <div class="content"> <table style="margin-left: 35%;">
-            <tr>
+            <tr style="background-color: rgb(220,220,220);">
             <th >Team 1</th>
             <th > </th>
             <th >Vs</th>
@@ -89,7 +94,7 @@ if (isset($_GET['id']) && $_GET['id'] != ""){
                 $match = getMatchInfo($i,$conn);
                 $team1Info = getTeamInfo($conn, $match['team1ID']);
                 $team2Info = getTeamInfo($conn, $match['team2ID']);
-                echo '<tr> <td>';
+                echo '<tr style="background-color: rgb(240,240,240);"> <td>';
                 echo "<a  class='center' style='color: black; text-decoration: none;' href='teamPage.php?id=".$match['team1ID']."'>  " .$team1Info['teamName'].'  </a>';
                 echo '</td> <td>';
                 echo  '<img  class="center" src="teamLogos/'.$team1Info["teamLogo"].'" alt="Team Logo" width=40>';
@@ -150,15 +155,18 @@ if (isset($_GET['id']) && $_GET['id'] != ""){
     </form> </br>';
     foreach (GetPlayerNamesFromTeamID($conn, $_GET['id']) as $j => $i){
         if ($j != $info['captinID']){
-            echo $i.
-            '
-            <form action = "includes/kickPlayer.php" method="post">
+            echo $i;
+            ?>
+            <form action = "includes/kickPlayer.php" method="post" onsubmit="return confirm('Kick Player?');">
+                <?php echo'
                 <input type="hidden" name="teamID" value="',$info["teamID"],'" />
                 <input type="hidden" name="playerID" value="',$j,'" />
                 <input type="submit" value="Kick" name="submit">
                 <input type="hidden" name="type" value="kick" />
-            </form>'.
-            '<form action = "includes/promotePlayer.php" method="post">
+            </form>';
+            ?>
+            <form action = "includes/promotePlayer.php" method="post" onsubmit="return confirm('Promote Player To Captin?');">
+                <?php echo'
                 <input type="hidden" name="teamID" value="',$info["teamID"],'" />
                 <input type="hidden" name="playerID" value="',$j,'" />
                 <input type="submit" value="Promote" name="submit">
@@ -229,7 +237,8 @@ echo '<a class="center" style="margin-top: 5%; font-size: 40px;">'.$info['teamNa
     <a id='errTxt' class='error'>This Team Must Complete At Least 2 Matches To View This Data</a>
 </div>
 <script type='module'>    
-import lineGraoph from '/MajorWork/includes/graph.js'
+import lineGraph from 'MajorWork/includes/graph.js' //replace with '/includes/graph.js' on serverside version
+console.log('test');
 var passedArray = 
 
     <?php 
@@ -260,7 +269,7 @@ if (passedArray != 'invalid'){
     var errText = document.getElementById('errTxt');
     errText.style.display = 'none';
     canvasElement.width = canvasDivWidth-50
-    lineGraoph(data,canvasElement);
+    lineGraph(data,canvasElement);
     console.log('graph')
 }else{
     var canvasElement = document.getElementById('chart');

@@ -8,7 +8,10 @@
     <?php include "includes/header.php";?> <!-- creates the Naviation Bar-->
 </body>
 
-
+<div class="tooltip" style= "position: fixed; bottom: 0; right: 0;">
+    <div style="float: left; width: 350px; background-color: rgb(220,220,220);  padding:10px;" class="tooltiptext"><a >A list of all the teams click their names to go to their team page. use the searchbar to search for teams</a></div>
+    <a ><img style="width: 60px; padding: 20px;" src="images/help.png"></a> 
+</div>
 
 <h1 class="center" style="margin: 5px; margin-top:70px;">Search Teams</h1>
 <div class="searchBar center">
@@ -37,7 +40,7 @@
 
 $sql;
 if (isset($_GET['search'])){
- $sql =  "SELECT * FROM teams ORDER BY score DESC WHERE teamName LIKE '%".$_GET['search']."%'";
+ $sql =  "SELECT * FROM teams WHERE teamName LIKE '%".$_GET['search']."%' ORDER BY score DESC ";
 } else {
 $sql = "SELECT * FROM teams  ORDER BY score DESC";}
 

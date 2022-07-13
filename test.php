@@ -11,13 +11,4 @@
 </body>
 </html>
 <?php
-
-include "phpcode/dbconn.php";
-
-$result = mysqli_query($connect,"SELECT * From test");
-if($result){
-    if (mysqli_num_rows($result) > 0){
-        $dict = mysqli_fetch_assoc($result);    
-        print_r( $dict);
-    }
-}
+    echo password_hash("123", PASSWORD_DEFAULT);
