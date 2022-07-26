@@ -1,5 +1,3 @@
-GNU nano 4.8                                                                                                    submitScores.php                                                                                                     Modified  
-
 <?php
 include 'database.php';
 include 'functions.php';
